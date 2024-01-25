@@ -3,7 +3,6 @@ import './App.css'
 import AddTodo from './components/AddTodo'
 import Todo from './components/Todo'
 import React from 'react';
-import TodoList from './components/TodoList';
 
 function App() {
   // const todos = useSelector(state => state.todos)
@@ -28,7 +27,7 @@ function App() {
     <>
       <h1 className='text-4xl font-bold'>Let's learn Redux Toolkit</h1>
       <AddTodo />
-      <TodoList />
+      <Todo />
     </>
   )
 }

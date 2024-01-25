@@ -97,7 +97,8 @@ export class Service {
                 conf.appwriteBucketId,
                 ID.unique(),
                 file
-            )
+       
+                )
         } catch (error) {
             console.log("E:: Appwrite storage service :: uploadFile() :: ", error);
             return false;
@@ -106,10 +107,11 @@ export class Service {
 
     async deleteFile(fileId) {
         try {
-            return await this.bucket.deleteFile(
+            await this.bucket.deleteFile(
                 conf.appwriteBucketId,
                 fileId
             )
+            return true
         } catch (error) {
             console.log("E:: Appwrite storage service :: deleteFile() :: ", error);
             return false;

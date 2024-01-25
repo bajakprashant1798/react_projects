@@ -6,7 +6,7 @@ function AddTodo() {
 
     const [input, setInput] = useState('')
     const dispatch = useDispatch()
-    // const role = useSelector(state => state.role)
+    const role = useSelector(state => state.role)
 
     const addTodoHandler = (e) => {
         e.preventDefault()
@@ -15,13 +15,13 @@ function AddTodo() {
     }
 
     
-    // const todo = useSelector(state => state.editTodo)
-    // const id = useSelector(state => state.id)
-    // useEffect(() => {
-    //   if(role === "edit"){
-    //     setInput(todo)
-    //   }
-    // }, [role])
+    const todo = useSelector(state => state.editTodo)
+    const id = useSelector(state => state.id)
+    useEffect(() => {
+      if(role === "edit"){
+        setInput(todo)
+      }
+    }, [role])
 
     
 
@@ -34,17 +34,17 @@ function AddTodo() {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      {/* {role === "edit" ?
+      {role === "edit" ?
         <button onClick={(e) => { 
             e.preventDefault();
             dispatch(updateTodo({ text: input, id: id }))
             setInput("");
         }}>
             edit todo
-        </button>  : */}
+        </button>  :
 
-        <button type="submit">  add todo </button>
-      {/* } */}
+        <button type="submit"> {role} todo </button>
+      }
     </form>
   )
 }

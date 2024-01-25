@@ -1,22 +1,83 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeTodo, changeRole } from '../features/todo/todoSlice'
+import { removeTodo, changeRole, updateTodo } from '../features/todo/todoSlice'
 // import { removeTodo } from '../features/todo/todoSlice'
 
-function Todo() {
-    const todos = useSelector(state => state.todos)
+function Todo( {todo} ) {
+    const [isTodoEditable, setIsTodoEditable] = useState(false)
+    
+    const [newInput, setNewInput] = useState(todo.text)
+
+    // const todos = useSelector(state => state.todos)
     const dispatch = useDispatch()
+
+    // const allId = todos.map((todo) => todo.id)
+    // const allTodos = todos.map((todo) => todo.text)
+
+    
+    
+    
+
+    // const editTodo = (e) => {
+    //     e.preventDefault();
+    //     console.log('editTodo function working');
+    //     console.log(newInput);
+    //     console.log('todos: ', todos);
+    //     console.log('id: ',id);
+    //     dispatch(updateTodo({ id: todo.id, text: newInput }))
+        
+    //     setIsTodoEditable(false)
+    //     console.log('edit todo', isTodoEditable);
+    //     console.log('edit todo', todos);
+    // }
+    
+   
+
+    // const todo = useSelector(state => state.todo)
+    // const id = useSelector(state => state.id)
+    
+    const just = () => {
+        // console.log('just todo',todo);
+        // console.log('just id', id);
+        console.log('just', todo.id)
+    }
+    const nowJust = () => {
+        console.log('now just', todo.text);
+    }
+
+    // useEffect(() => {
+    //     if(isTodoEditable){
+    //         console.log('useEffefct', todo);
+    //         setNewInput(todo)
+    //       }
+    //     }, [isTodoEditable])
+
+
   return (
     <>
-        <div>Todos</div>
-        <ul className="list-none">
-            {todos.map((todo) => (
+        
             <li
                 className="mt-4 flex justify-between items-center bg-zinc-800 px-4 py-2 rounded"
                 key={todo.id}
             >
                 
-                <div className='text-white'>{todo.text}</div>
+                {/* <div className='text-white'>{todo.text}</div> */}
+
+                {isTodoEditable ? 
+                    (<input
+                        type="text"
+                        className="bg-gray-800 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                        placeholder="Enter a Todo..."
+                        value={newInput}
+                        onChange={(e) => setNewInput(e.target.value)}
+                        // readOnly={!isTodoEditable}
+                    />) :
+                    
+                    <div className='text-white'>{todo.text}</div>
+                
+                }
+                
+                
                 <div>
                     <button
                     onClick={() => dispatch(removeTodo(todo.id))}
@@ -38,23 +99,47 @@ function Todo() {
                     </svg>
                     </button>
 
-                    <button 
+                    {/* <button 
                     className="text-white bg-red-500 border-0 py-1 px-4 mr-2 focus:outline-none hover:bg-red-600 rounded text-md"
-                    onClick = {() => {
-                        dispatch(changeRole({ 
-                            role:'edit', 
-                            editTodo: todo.text, 
-                            id:todo.id 
-                        }))
+                    onClick={(e) => {
+                        e.preventDefault();
+                        if (isTodoEditable) {
+                            dispatch(updateTodo({ id: todo.id, text: newInput }))
+                            setIsTodoEditable(false)
+                            
+                        } else {
+                            setIsTodoEditable((prev) => !prev)
+                        };
                     }}
                     >
-                        <svg class="feather feather-edit w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                    </button>
+                        <svg className="feather feather-edit w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button> */}
+
+                    {!isTodoEditable ? 
+                        <button className="text-white bg-red-500 border-0 py-1 px-4 mr-2 focus:outline-none hover:bg-red-600 rounded text-md"
+                        onClick={() => {setIsTodoEditable(true)
+                            nowJust()}
+                        }
+                        >
+                        edit
+                        </button>
+                    : 
+                        <button className="text-white bg-red-500 border-0 py-1 px-4 mr-2 focus:outline-none hover:bg-red-600 rounded text-md"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                dispatch(updateTodo({ id: todo.id, text: newInput }))
+                                console.log("todo id onclick", todo.id);
+                                setIsTodoEditable(false)
+                                just()
+                            }}
+                        >
+                            save
+                        </button>
+                    }
             
                 </div>
             </li>
-            ))}
-        </ul>
+
     </>
   )
 }
