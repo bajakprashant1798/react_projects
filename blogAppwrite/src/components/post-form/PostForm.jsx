@@ -19,7 +19,7 @@ function PostForm({post}) {
     })
 
     const navigate = useNavigate()
-    const userDate = useSelector((state) => state.auth.userData)
+    const userData = useSelector((state) => state.auth.userData)
 
     const submit = async(data) => {
       if (post) {
@@ -97,7 +97,7 @@ function PostForm({post}) {
             />
             {post && (
                 <div className="w-full mb-4">
-                    <img src={appwriteSerice.getFilePreview(post.featuredImage)} alt={post.title}
+                    <img src={appwriteService.getFilePreview(post.featuredImage)} alt={post.title}
                     className="rounded-lg"
                     />
                     

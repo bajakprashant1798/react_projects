@@ -14,13 +14,17 @@ function Login() {
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState("")
 
+    // console.log("clicked login");
+
     const login = async (data) => {
         setError("")
         try {
             const session = await authService.login(data)
+            
             if (session) {
                 const userData = await authService.getCurrentUser()
                 if (userData) {
+                    
                     dispatch(authLogin({userData}))
                     navigate('/')
                 }

@@ -17,8 +17,8 @@ export class Service {
     async getPost(slug) {
         try {
             return await this.databases.getDocument(
+                conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                conf.appwriteDatebaseId,
                 slug
             )
         } catch (error) {
@@ -30,7 +30,7 @@ export class Service {
     async getPosts(queries = [ Query.equal('status', 'active') ]) {
         try {
             return await this.databases.listDocuments(
-                conf.appwriteDatebaseId,
+                conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries
             )
@@ -43,7 +43,7 @@ export class Service {
     async createPost({slug, title, content, featuredImage, status, userId}) {
         try {
             return await this.databases.createDocument(
-                conf.appwriteDatebaseId,
+                conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug,
                 {
@@ -63,7 +63,7 @@ export class Service {
     async updatePost(slug, {title, content, featuredImage, status}) {
         try {
             return await this.databases.updateDocument(
-                conf.appwriteDatebaseId,
+                conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug,
                 {
@@ -79,7 +79,7 @@ export class Service {
     async deletePost(slug) {
         try {
             await this.databases.deleteDocument(
-                conf.appwriteDatebaseId,
+                conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug
             )

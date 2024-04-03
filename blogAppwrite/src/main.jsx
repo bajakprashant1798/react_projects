@@ -68,7 +68,7 @@ const router = createBrowserRouter([
       {
         path: '/post/:slug',
         element: (
-          <Protected authentication={true}>
+          <Protected authentication>
             <Post />
           </Protected>
         )
